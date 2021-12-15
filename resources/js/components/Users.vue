@@ -20,20 +20,24 @@
                     <!-- /.card-header -->
                     <div class="card-body table-responsive p-0">
                         <table class="table table-hover text-nowrap">
-                            <thead>
+                            <tbody>
                                 <tr>
                                     <th>ID</th>
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Type</th>
+                                    <th>Register at</th>
+
                                     <th>Modify</th>
                                 </tr>
-                            </thead>
+                            </tbody>
                             <tbody>
-                                <tr>
-                                    <td>183</td>
-                                    <td>John Doe</td>
-                                    <td>11-7-2014</td>
+                                <tr v-for="user in users" :key="user.id">
+                                    <td>{{ user.id }}</td>
+                                    <td>{{ user.name }}</td>
+                                    <td>{{ user.email }}</td>
+                                    <td>{{ user.type }}</td>
+                                    <td>{{ user.created_at }}</td>
                                     <td>
                                         <span class="tag tag-success"
                                             >Approved</span
@@ -105,10 +109,13 @@
                                     type="email"
                                     name="email"
                                     placeholder="Email Address"
+                                    :class="{
+                                        'is-valid': form.errors.has('email'),
+                                    }"
                                 />
                                 <has-error
-                                    v-if="form.errors.has('email')"
-                                    v-html="form.errors.get('email')"
+                                    :form="form"
+                                    field="email"
                                 ></has-error>
                             </div>
 
@@ -118,11 +125,11 @@
                                     v-model="form.bio"
                                     name="bio"
                                     placeholder="Short Bio for User"
+                                    :class="{
+                                        'is-valid': form.errors.has('bio'),
+                                    }"
                                 ></textarea>
-                                <has-error
-                                    v-if="form.errors.has('bio')"
-                                    v-html="form.errors.get('bio')"
-                                ></has-error>
+                                <has-error :form="form" field="bio"></has-error>
                             </div>
 
                             <div class="form-group">
@@ -175,8 +182,8 @@
                         >
                             Close
                         </button>
-                        <button type="button" class="btn btn-primary">
-                            Save
+                        <button v-on:click="createUser" class="btn btn-primary">
+                            Create
                         </button>
                     </div>
                 </div>
@@ -187,16 +194,16 @@
 
 <script>
 import Form from "vform";
-import { Button, HasError, AlertError } from "vform/src/components/bootstrap5";
 
+import { HasError, AlertError } from "vform/src/components/bootstrap5";
 export default {
     components: {
-        Button,
         HasError,
         AlertError,
     },
     data() {
         return {
+            users: {},
             form: new Form({
                 name: "",
                 password: "",
@@ -207,8 +214,16 @@ export default {
             }),
         };
     },
-    mounted() {
-        console.log("Component mounted.");
+    methods: {
+        loadUser() {
+            axios.get("/api/user").then(({ data }) => (this.users = data.data));
+        },
+        createUser() {
+            this.form.post("/api/user");
+        },
+    },
+    created() {
+        this.loadUser();
     },
 };
 </script>

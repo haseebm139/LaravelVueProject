@@ -12,7 +12,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <link rel="stylesheet" href="/css/app.css">
+    <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
@@ -77,7 +77,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <img src="./img/icon.png" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <router-link to="/profile" class="d-block green">{{ Auth::user()->name }}</router-link>
+                        <router-link to="/profile" class="d-block green">{{ auth()->user()->name }}</router-link>
                     </div>
                 </div>
 

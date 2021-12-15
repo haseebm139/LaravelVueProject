@@ -5,12 +5,14 @@
  */
 
 require("./bootstrap");
+// require("./admin-lte");
+require("@fortawesome/fontawesome-free/js/all.js");
 window.Vue = require("vue").default;
 
 import VueRouter from "vue-router";
-
+// import axios from "axios";
 Vue.use(VueRouter);
-
+// Vue.use(VueAxios, axios);
 const routes = [
     {
         path: "/dashboard",
