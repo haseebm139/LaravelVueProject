@@ -77,7 +77,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <img src="./img/icon.png" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <router-link to="/profile" class="d-block green">{{ auth()->user()->name }}</router-link>
+                        <router-link to="/profile" class="d-block green">User Name</router-link>
                     </div>
                 </div>
 
@@ -99,6 +99,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             </router-link>
                         </li>
 
+                        <li class="nav-item">
+                            <router-link to="/developer" class="nav-link">
+                                <i class="nav-icon fa fa-cog"></i>
+                                <p>
+                                    Developer
+                                </p>
+                            </router-link>
+                        </li>
                         <li class="nav-item ">
                             <router-link to="/profile" class="nav-link">
                                 <i class="nav-icon fas fa-user-alt orange"></i>
@@ -172,6 +180,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="container-fluid">
 
                     <router-view></router-view>
+                    <vue-progress-bar></vue-progress-bar>
                 </div><!-- /.container-fluid -->
             </div>
             <!-- /.content -->

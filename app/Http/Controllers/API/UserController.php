@@ -9,6 +9,17 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     * Protected By Unauthorized User
+     */
+    public function __construct()
+    {
+        // $this->middleware('auth');
+        $this->middleware('auth:api');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -16,10 +27,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        $user = User::latest()->paginate('10');
-        echo($user);
-        return ($user) ;
-        
+         
+        return 
+         User::latest()->paginate('30');
     }
 
     /**
@@ -56,9 +66,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function profile()
     {
-        //
+        return auth('api')->user();
     }
 
     /**
@@ -70,7 +80,19 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::findOrFail($id);
+
+        $this->validate($request,[
+
+            'name' => 'required|max:191|string',
+            'email' => 'required|max:191|email|string|unique:users,email,'.$user->id,
+            'password' => 'sometime|min:6|',
+           
+
+        ]);
+        
+        $user->update($request->all());
+        return $user;
     }
 
     /**
@@ -81,6 +103,11 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::findOrFail($id);
+        // delete the user
+
+        $user->delete();
+
+        return ['message' => 'User Deleted '];
     }
 }

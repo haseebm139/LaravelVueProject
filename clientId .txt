@@ -1,0 +1,5 @@
+Client ID: 95222195-2188-4b6a-9948-8239de27bd2f
+Client secret: kz2ElAuYB0CkSsTFyUgQXIROQQ3qAIyjjHghvtSq
+Password grant client created successfully.
+Client ID: 95222195-2a17-4512-a04f-878d67bd96c4
+Client secret: MZ9yFedq4OSAVanzGuRssqf16cnpu6bJ5HIHsQSQ
